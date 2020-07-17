@@ -1,0 +1,69 @@
+{% extends "Flight/base.html" %}
+{% block title %}
+History
+{% endblock %}
+
+{% block body %}
+
+
+<h1 align="center">Travel History</h1>
+{% if user.is_authenticated %}
+
+
+{% if History %}
+<table  class="table ">
+
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Booking ID</th>
+      <th scope="col">Passenger name</th>
+      <th scope="col">Age</th>
+      <th scope="col">Route</th>
+      <th scope="col">Travelling Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for booking in History %}
+  {% if booking.bookedby.username == user.username %}
+    <tr>
+      <th scope="row">{{booking.id}}</th>
+      <td>{{booking.bookedfor}}</td>
+      <td>{{booking.bookedfor.age}}</td>
+      <td>{{booking.route}}</td>
+      <td>{{booking.date}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% else %}
+<br>
+<h6 align="center">You have no travel History</h6>
+{% endif %}
+
+<!--<br>-->
+<!--{% if History %}-->
+<!--    {% for booking in History %}-->
+<!--        {% if booking.bookedby.username == user.username %}-->
+<!--    <ul>-->
+<!--        <li>{{booking.bookedfor}} -> {{booking.route}}   Time - {{booking.date}}</li>-->
+<!--    </ul>-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+
+<!--{% else %}-->
+<!--<h6>You have no travel History</h6>-->
+<!--{% endif %}-->
+
+{% else %}
+
+Login First to access your Bookings..
+<br>
+<a href="registration/login">Click here to Login or register</a>
+{% endif %}
+
+
+{% endblock %}

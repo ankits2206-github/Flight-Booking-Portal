@@ -1,0 +1,43 @@
+{%extends "Flight/base.html" %}
+{%block title%}
+Airports
+{% endblock %}
+{%block body %}
+
+{% if request.user.is_superuser %}
+<h1> Airport </h1>
+
+<ul>
+    {% for airport in airports %}
+    <li>
+        {{airport}}
+    </li>
+    {% endfor %}
+</ul>
+
+<h5 align="center"> To add airport enter Airport name and its respective code </h5>
+{% for messege in messages %}
+<div class="alert alert-danger">
+  <strong>{{messege}}</strong>
+</div>
+{% endfor %}
+<div class="card text-center body-center border-dark light mx-auto mt-3" style="width: 40rem;">
+             <h5>Booking Form</h5>
+        <div class = "form-group ">
+<form action="{% url 'bookairport' %}" method = "post">
+    {% csrf_token %}
+    Enter City Name :-
+    <input type="text" name="city" class="form-control" required><br>
+    <br>Enter Airport code :-
+    <input type="test" name="code" class="form-control" required minlength="3" maxlength="3"><br>
+    <input type="submit" value="Submit">
+</form>
+        </div></div>
+<a href="{% url 'index' %}">Back to full listing</a>
+{% else %}
+
+<h3 align="center">You are not allowed to see this page.</h3>
+
+{% endif %}
+
+    {%endblock%}

@@ -1,0 +1,58 @@
+{%extends "Flight/base.html" %}
+{%block title%}
+Registration
+{% endblock %}
+{%block body %}
+<!--<form action="register" method="post">-->
+<!--    {%csrf_token %}-->
+<!--    <input type="text" name="firstname" placeholder="First Name"><br>-->
+<!--    <input type="text" name="lastname" placeholder="Last Name"><br>-->
+<!--    <input type="text" name="username" placeholder="Username"><br>-->
+<!--    <input type="email" name="email", placeholder="Email"><br>-->
+<!--    <input type="password" name="password1" placeholder="Password"><br>-->
+<!--    <input type="password" name="password2" placeholder="Confirm Password"><br>-->
+<!--    <input type="submit" name="Submit">-->
+<!--</form>-->
+{% if messages %}
+<div class="alert alert-danger" role="alert">
+        Invalid Credentials
+</div>
+{% endif %}
+
+
+
+<br>
+<h2 align="center">Registration Form</h2>
+<div class="card text-center body-center border-secondary mb-3 light mx-auto mt-3" style="width: 40rem;">
+
+<form action="register" method="post">
+    {% csrf_token %}
+    <div class="form-group-sm">
+    <label for="Firstname">First Name</label>
+    <input type="text" name="firstname" class="form-control" id="Firstname"><br>
+
+    <label for="Lastname">Last Name</label>
+    <input type="text" name="lastname" class="form-control" id="Lastname"><br>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" class="form-control" id="username"><br>
+
+    <label for="email">E-mail</label>
+    <input type="text" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your Personal information with anyone else.</small>
+
+    <label for="exampleInputPassword1">Enter Password</label>
+    <input type="password" name="password1" class="form-control" id="exampleInputPassword1"><br>
+
+    <label for="exampleInputPassword2">Re-enter Password</label>
+    <input type="password" name="password2" class="form-control" id="exampleInputPassword2">
+        <br>
+        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+  </div>
+
+</form>
+</div>
+
+{% endblock %}
+
+

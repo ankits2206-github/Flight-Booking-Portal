@@ -1,0 +1,73 @@
+{% extends "Flight/base.html" %}
+
+{% block title %}
+My bookings
+{% endblock %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+
+{% if mybookings %}
+<h1 align="center">My Bookings</h1>
+    <table  class="table table-striped table-condensed">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Booking ID</th>
+      <th scope="col">Passenger name</th>
+        <th scope="col">Age</th>
+      <th scope="col">Route</th>
+      <th scope="col">Travelling Date</th>
+    </tr>
+    </thead>
+        <tbody>
+    {% for booking in mybookings %}
+        {% if booking.bookedby.username == user.username %}
+        <tr>
+      <th scope="row">{{booking.id}}</th>
+      <td>{{booking.bookedfor}}</td>
+            <td>{{booking.bookedfor.age}}</td>
+      <td>{{booking.route}}</td>
+      <td>{{booking.date}}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+</table>
+
+
+{% else %}
+<br>
+<h3 align="center">OOPS!!You have'nt booked any flight yet...</h3>
+{% endif %}
+<br>
+
+{% if mybookings %}
+<h2>To Cancel Flight </h2>
+
+<form action="{% url 'delete' %}" method="post">
+    {% csrf_token %}
+
+    <select name="passenger">
+        {% for booking in mybookings %}
+            {% if booking.bookedby.username == user.username %}
+                <option value="{{booking.id}}">{{booking.bookedfor}}({{booking.bookedfor.age}}) ({{booking.route}}) ON {{booking.date}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Cancel Flight">
+</form>
+
+
+
+
+{% endif %}
+{% else %}
+Login First to access your Bookings..
+<br>
+<a href="registration/login">Click here to Login or register</a>
+{% endif %}
+
+{% endblock %}

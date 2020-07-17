@@ -1,0 +1,86 @@
+{% extends "Flight/base.html" %}
+
+{% block title %}
+    Flight {{flight.id}}
+
+{% endblock %}
+{% block body %}
+
+
+{% if user.is_authenticated %}
+
+    <h1> Flights {{flight.id}}</h1>
+
+    <ul>
+
+        <li>Origin : {{flight.origin}}</li>
+        <li>Destination : {{flight.destination}}</li>
+        <li>Duration : {{flight.duration}} min</li>
+    {% if request.user.is_superuser %}
+    *This feature is only for admin where he can directly book flight for existing passengers
+        <h2>Passengers</h2>
+        {% for passenger in passengers %}
+        <li>{{passenger}}</li>
+        {% empty %}
+        <li>No passengers</li>
+        {% endfor %}
+        </ul>
+
+        <hr>
+        <h2> Add a Passenger </h2>
+        {% if non_passengers %}
+
+        <form action="{% url 'book' flight.id %}" method="post">
+            {% csrf_token %}
+            <select name = "passenger">
+                {% for passenger in non_passengers %}
+                <option value="{{passenger.id}}">{{passenger}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Book Flight"/>
+        </form>
+        {% else %}
+            <div>No passengers to add</div>
+
+        {% endif %}
+        {% endif %}
+
+
+        <br>
+        {% for messege in messages %}
+        <div class="alert alert-danger">
+        <strong>{{messege}}</strong>
+        </div>
+        {% endfor %}
+        <div class="card text-center body-center border-dark light mx-auto mt-3" style="width: 40rem;">
+             <h5>Booking Form</h5>
+        <div class = "form-group ">
+
+        <form action="{% url 'normregister' flight.id %}" method="post">
+            {% csrf_token %}
+            <label for="first">First Name</label>
+            <input  name="first" placeholder="First Name" type="text" class="form-control" id="first" required>
+            <label for="last">Last Name</label>
+            <input type="text" name="second" placeholder="Last Name" class="form-control" id="last" required>
+            <label for="age">Age</label>
+            <input type="number" name="age" placeholder="Age" class="form-control" id="age" required>
+            <label for="date">Date Of Boarding</label>
+            <input type="date" name="date" class="form-control " id="date" required><br>
+
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+        </div>
+        </div>
+
+
+{% else %}
+<br>
+<h1 align="center">Login First to book the flights</h1>
+<div align="center">
+<img src="https://cdn.dnaindia.com/sites/default/files/styles/full/public/2019/06/13/835815-meme-3.jpg" style="width:auto;height:300px;">
+</div>
+<a href="registration/login" >Click here to Login or register</a>
+
+{% endif %}
+
+{%  endblock %}

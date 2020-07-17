@@ -1,0 +1,53 @@
+{% extends "Flight/base.html" %}
+
+{% block title %}
+    News
+
+{% endblock %}
+{% block body %}
+
+
+{% if user.is_authenticated %}
+
+<div class="jumbotron" style="color:black">
+
+      <h1 style ="color:Black" align="center">
+         Top Headlines
+      </h1>
+    <h3 align="center">Country : {{country}}</h3>
+
+
+
+<form method="post" action="{% url 'newsfun' %}" align="center">
+    {% csrf_token %}
+    Choose country :-
+    <select name="country">
+        {% for i in con %}
+        <option value="{{i.code}}">{{i.name}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit">
+
+</form>
+</div>
+<div class="container">
+    {% for news in mylist %}
+    <img src="{{news.image}}" alt="Image" style="width:1000px;height:500px;">
+    <h1>News :</h1>{{news.title}}
+    {{value|linebreaks}}
+
+    <h4>Description :</h4>
+    {{news.description}}
+    {{value|linebreaks}}
+
+    {% endfor %}
+</div>
+
+{% else %}
+<h1 align="center">Login First to watch latest news.</h1>
+<div align="center">
+<img src="https://cdn.dnaindia.com/sites/default/files/styles/full/public/2019/06/13/835815-meme-3.jpg" style="width:auto;height:300px;">
+</div>
+<a href="registration/login" >Click here to Login or register</a>
+{% endif %}
+{% endblock %}

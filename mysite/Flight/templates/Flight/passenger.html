@@ -1,0 +1,53 @@
+{% extends "Flight/base.html" %}
+{% block title %}
+Passengers
+{% endblock %}
+
+{% block body %}
+
+ {% if request.user.is_superuser %}
+
+*This feature is only for admin where he can directly add a passenger.
+<h1 align="center">Passengers</h1>
+
+<ul>
+
+    {% for passenger in passengers %}
+    <li>{{passenger}}</li>
+    {% endfor %}
+
+</ul>
+<br>
+
+<h5 align="center">To add passenger Enter His/Her First Name and Last name is respective columns</h5>
+{% for messege in messages %}
+<div class="alert alert-danger">
+  <strong>{{messege}}</strong>
+</div>
+{% endfor %}
+<div class="card text-center body-center border-dark light mx-auto mt-3" style="width: 40rem;">
+             <h5>Booking Form</h5>
+        <div class = "form-group ">
+<form action="{% url 'bookpassenger' %}" method="post">
+    {% csrf_token %}
+    Enter First name :-
+    <input type="text" name="first" class="form-control" required>
+    <br>
+    Enter last name:-
+    <input type="text" name="last" class="form-control" required>
+
+    <br>
+    Enter Age :-
+    <input type="age" name="age" class="form-control" required>
+    <input type="submit" value="Submit">
+
+</form>
+
+<a href="{% url 'index' %}">Back to full listing</a>
+        </div></div>
+{% else %}
+<h3 align="center">You are not allowed to see this page.</h3>
+
+{% endif %}
+
+{% endblock %}

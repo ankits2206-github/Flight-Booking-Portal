@@ -1,0 +1,17 @@
+{%extends "Flight/base.html" %}
+{%block title%}
+Error
+{% endblock %}
+{%block body %}
+{% if user.is_authenticated %}
+
+<div align="center">
+<h1>ERROR</h1>
+    {{message}}
+
+    <br>
+<a href="{% url 'index'%}">Back to full listing</a>
+
+{% endif %}
+</div>
+{% endblock %}

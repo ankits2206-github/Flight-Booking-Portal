@@ -1,0 +1,47 @@
+{%extends "Flight/base.html" %}
+{%block title%}
+Login
+{% endblock %}
+{%block body %}
+<!--
+<form action="login" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username"><br>
+    <input type="password" name="password" placeholder="Password"><br>
+    <input type="submit" value="Submit">
+
+</form>
+-->
+
+{% for messege in messages %}
+<div class="alert alert-danger">
+  <strong>{{messege}}</strong>
+</div>
+{% endfor %}
+<br>
+<h2 align="center">Login Form</h2>
+  <div class="card text-center body-center border-dark light mx-auto mt-3" style="width: 40rem;">
+
+<form action="login" method="post">
+    {% csrf_token %}
+  <div class="form-group-sm">
+    <label for="exampleInputusername">Username</label>
+    <input type="text" name="username" class="form-control" id="exampleInputusername" aria-describedby="usernameHelp">
+    <small id="usernameHelp" class="form-text text-muted">We'll never share your Personal information with anyone else.</small>
+
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" name="password" class="form-control" id="exampleInputPassword1"><br>
+      <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+  </div>
+
+</form>
+
+
+<a href="register">Click here to register</a>
+  </div>
+
+
+
+
+{% endblock %}
+
